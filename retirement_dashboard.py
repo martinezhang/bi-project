@@ -38,3 +38,4 @@ fig2 = px.bar(filtered_df, x='cat_fin', y='proportion_de_personnes_fortement_lim
                title=f'End-of-Career Conditions for {selected_cat_socp}')
 fig2.update_layout(xaxis_title='End-of-Career Conditions', yaxis_title='Proportion of Retirees Strongly Limited During First Year of Retirement')
 st.plotly_chart(fig2)
+
