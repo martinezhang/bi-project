@@ -5,6 +5,9 @@ import streamlit as st
 url = "https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549a4"
 data = pd.read_csv(url, sep=";")
 
+# Changer l'année de string en integer
+annee = int(annee)
+
 # Création du dashboard
 st.title("Age de départ à la retraite et conditions de fin de carrière selon la catégorie socioprofessionnelle")
 categories = data["categorie_socioprofessionnelle"].unique()
@@ -12,6 +15,9 @@ selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprof
 
 # Filtre les données selon la catégorie sélectionnée
 filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
+
+# Filtrer les données selon l'année sélectionnée
+filtered_data = filtered_data[filtered_data["annee"] == annee]
 
 # Affichage des données
 st.write("Données pour la catégorie socioprofessionnelle :", selected_category)
