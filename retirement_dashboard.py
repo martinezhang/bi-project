@@ -11,7 +11,7 @@ categories = data["categorie_socioprofessionnelle"].unique()
 selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprofessionnelle", categories)
 
 # Filtre les données selon la catégorie sélectionnée
-filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
+filtered_data = data[(data["categorie_socioprofessionnelle"] == selected_category) & (data[annee] == selected_year)]
 
 # Affichage des données
 st.write("Données pour la catégorie socioprofessionnelle :", selected_category)
