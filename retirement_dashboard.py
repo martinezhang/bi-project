@@ -18,7 +18,7 @@ selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprof
 filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
 
 # Filtrer les données selon l'année sélectionnée
-selected_year = st.sidebar.selectbox("Sélectionnez une année", annees)
+selected_year = st.sidebar.selectbox("Sélectionnez une année", data.iloc[:, 0].astype(int).unique())
 filtered_data = filtered_data[filtered_data["annee"] == selected_year]
 
 # Affichage des données
