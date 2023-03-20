@@ -11,7 +11,7 @@ annees = data.iloc[:, 0].unique()
 
 # Création du dashboard
 st.title("Age de départ à la retraite et conditions de fin de carrière selon la catégorie socioprofessionnelle")
-categories = data["categorie_socioprofessionnelle"].unique()
+categories = sorted(data["categorie_socioprofessionnelle"].unique())
 selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprofessionnelle", categories)
 
 # Filtre les données selon la catégorie sélectionnée
