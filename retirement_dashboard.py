@@ -7,6 +7,7 @@ data = pd.read_csv(url, sep=";")
 
 # Définition de l'année
 annee = data.columns[0]
+annee = int(annee)
 
 # Création du dashboard
 st.title("Age de départ à la retraite et conditions de fin de carrière selon la catégorie socioprofessionnelle")
