@@ -6,7 +6,7 @@ url = "https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549
 data = pd.read_csv(url, sep=";")
 
 # Extraire la première colonne comme série et prendre la première valeur comme année
-annee = data.iloc[:, :][0]
+annee = data.iloc[:, 0][0]
 
 # Changer l'année de string en integer
 annee = int(annee)
@@ -20,7 +20,7 @@ selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprof
 filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
 
 # Filtrer les données selon l'année sélectionnée
-filtered_data = filtered_data[filtered_data["annee"] == annee]
+filtered_data = filtered_data[filtered_data["annee"].astype(int) == annee]
 
 # Affichage des données
 st.write("Données pour la catégorie socioprofessionnelle :", selected_category)
