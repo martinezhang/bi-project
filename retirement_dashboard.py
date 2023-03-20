@@ -7,7 +7,7 @@ data = pd.read_csv(url, sep=";")
 
 # Transformer la première colonne en entiers et prendre toutes les valeurs de la colonne comme années
 data.iloc[:, 0] = data.iloc[:, 0].astype(int)
-annees = data.iloc[:, 0].unique()
+annees = data.iloc[:, 0].astype(int).unique()
 
 # Création du dashboard
 st.title("Age de départ à la retraite et conditions de fin de carrière selon la catégorie socioprofessionnelle")
