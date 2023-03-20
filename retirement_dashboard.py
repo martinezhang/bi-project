@@ -6,7 +6,7 @@ url = "https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549
 data = pd.read_csv(url, sep=";")
 
 # Définition de l'année
-data.annee = int(data.annee)
+data.annee = int(annee)
 
 # Création du dashboard
 st.title("Age de départ à la retraite et conditions de fin de carrière selon la catégorie socioprofessionnelle")
