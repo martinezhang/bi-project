@@ -34,7 +34,7 @@ filtered_data = data[(data["categorie_socioprofessionnelle"] == selected_categor
 #filtered_data = filtered_data[(filtered_data["proportion_fortement_limitees"] >= selected_min_proportion_fortement_limitees/100) & (filtered_data["proportion_fortement_limitees"] <= selected_max_proportion_fortement_limitees/100)]
 #filtered_data = filtered_data[(filtered_data["proportion_limitees_mais_pas_fortement"] >= selected_min_proportion_limitees_mais_pas_fortement/100) & (filtered_data["proportion_limitees_mais_pas_fortement"] <= selected_max_proportion_limitees_mais_pas_fortement/100)]
 filtered_data = filtered_data[filtered_data["age_conjoncturel_de_depart_a_la_retraite"].isin(selected_age_conjoncturel)]
-filtered_data = filtered_data[(filtered_data["proportion_retraites_a_61_ans"] >= selected_min_proportion_retraites/100) & (filtered_data["proportion_retraites_a_61_ans"] <= selected_max_proportion_retraites/100)]
+#filtered_data = filtered_data[(filtered_data["proportion_retraites_a_61_ans"] >= selected_min_proportion_retraites/100) & (filtered_data["proportion_retraites_a_61_ans"] <= selected_max_proportion_retraites/100)]
 filtered_data = filtered_data[filtered_data["duree_moyenne_en_emploi_hors_cumul"].isin(selected_duree_moyenne_en_emploi_hors_cumul)]
 filtered_data = filtered_data[filtered_data["duree_moyenne_sans_emploi_ni_retraite"].isin(selected_duree_moyenne_sans_emploi_ni_retraite)]
 
@@ -45,5 +45,5 @@ st.write(filtered_data)
 # Affichage de graphiques
 st.subheader("Graphiques")
 st.bar_chart(filtered_data[["age_conjoncturel_de_depart_a_la_retraite", "duree_moyenne_en_emploi_hors_cumul", "duree_moyenne_sans_emploi_ni_retraite"]])
-st.line_chart(filtered_data[["proportion_de_retraites_a_61_ans", "proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]]) 
+#st.line_chart(filtered_data[["proportion_de_retraites_a_61_ans", "proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]]) 
 
