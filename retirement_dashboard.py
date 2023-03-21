@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import altair as alt
 
 # Chargement des données
 url = "https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549a4"
@@ -41,14 +42,11 @@ filtered_data = filtered_data[filtered_data["duree_moyenne_sans_emploi_ni_retrai
 st.write(filtered_data)
 
 # Affichage de graphiques
-import altair as alt
-
 chart = alt.Chart(filtered_data).mark_circle().encode(
     x='proportion_fortement_limitees',
     y='proportion_limitees_mais_pas_fortement',
     size='proportion_retraites_a_61_ans',
-    color='age_conjoncturel_de_depart_a_la_retraite',
-    tooltip=['categorie_socioprofessionnelle', 'duree_moyenne_en_emploi_hors_cumul', 'duree_moyenne_sans_emploi_ni_retraite']
+    color='age_conjoncturel_de_depart_a_la_retraite'
 ).interactive()
 
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(chart)
