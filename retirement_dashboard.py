@@ -42,11 +42,7 @@ filtered_data = filtered_data[filtered_data["duree_moyenne_sans_emploi_ni_retrai
 st.write(filtered_data)
 
 # Affichage de graphiques
-chart = alt.Chart(filtered_data).mark_circle().encode(
-    x='proportion_fortement_limitees',
-    y='proportion_limitees_mais_pas_fortement',
-    size='proportion_retraites_a_61_ans',
-    color='age_conjoncturel_de_depart_a_la_retraite'
-).interactive()
+st.subheader("Graphiques")
+st.bar_chart(filtered_data[["age_conjoncturel_de_depart_a_la_retraite", "duree_moyenne_en_emploi_hors_cumul", "duree_moyenne_sans_emploi_ni_retraite"]])
+st.line_chart(filtered_data[["proportion_de_retraites_a_61_ans", "proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]]) 
 
-st.altair_chart(chart)
