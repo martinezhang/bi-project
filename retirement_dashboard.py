@@ -14,12 +14,12 @@ st.title("Age de départ à la retraite et conditions de fin de carrière selon 
 categories = sorted(data["categorie_socioprofessionnelle"].unique())
 selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprofessionnelle", categories)
 
+# Filtre les données selon la catégorie sélectionnée
+filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
+
 # Filtrer les données selon l'année sélectionnée
 selected_year = st.sidebar.selectbox("Sélectionnez une année", annees)
 filtered_data = filtered_data[filtered_data["annee"] == selected_year]
-
-# Filtre les données selon la catégorie sélectionnée
-filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
 
 # Affichage des données
 st.write("Données pour la catégorie socioprofessionnelle :", selected_category, "et l'année", selected_year)
