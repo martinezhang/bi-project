@@ -21,6 +21,18 @@ filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category
 selected_year = st.sidebar.selectbox("Sélectionnez une année", annees)
 filtered_data = filtered_data[filtered_data["annee"] == selected_year]
 
+# Créer un graphique avec une ligne par catégorie socioprofessionnelle pour chaque année
+graph_data = filtered_data.groupby(['annee', 'categorie_socioprofessionnelle']).mean().reset_index()
+chart = st.line_chart(graph_data, use_container_width=True, height=500)
+
+# Ajouter une ligne de couleur différente pour chaque catégorie socioprofessionnelle
+colors = ['blue', 'red', 'green', 'orange', 'purple', 'brown']
+color_map = {category: color for category, color in zip(categories, colors)}
+for i, line in enumerate(chart.chart_data['data']):
+    category = line['name'].split('=')[1]
+    color = color_map[category]
+    chart.chart_data['data'][i]['line']['color'] = color
+
 # Affichage des données
 st.write("Données pour la catégorie socioprofessionnelle :", selected_category, "et l'année", selected_year)
 st.write(filtered_data)
@@ -28,4 +40,4 @@ st.write(filtered_data)
 # Affichage de graphiques
 st.subheader("Graphiques")
 st.bar_chart(filtered_data[["age_conjoncturel_de_depart_a_la_retraite", "duree_moyenne_en_emploi_hors_cumul", "duree_moyenne_sans_emploi_ni_retraite"]])
-st.line_chart(filtered_data[["proportion_de_retraites_a_61_ans", "proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]]) 
+st.line_chart(graph_data[["annee", "proportion_de_retraites_a_61_ans", "proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]]) 
