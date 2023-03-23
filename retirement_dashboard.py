@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Charger la base de données
-url = "<https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549a4>"
+url = "https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549a4"
 data = pd.read_csv(url, sep=";")
 
 # Transformer les variables en type approprié
