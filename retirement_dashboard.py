@@ -1,31 +1,40 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
 
-# Chargement des données
-url = "https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549a4"
+url = "<https://www.data.gouv.fr/fr/datasets/r/83067d1a-a776-479f-9839-70e5ec5549a4>"
 data = pd.read_csv(url, sep=";")
 
-# Transformer la première colonne en entiers et prendre toutes les valeurs de la colonne comme années
-data.iloc[:, 0] = data.iloc[:, 0].astype(int)
-annees = data.iloc[:, 0].astype(int).unique()
+# Sidebar pour filtrer les données
+year = st.sidebar.slider("Année", min_value=data["annee"].min(), max_value=data["annee"].max())
+category = st.sidebar.selectbox("Catégorie socioprofessionnelle", data["categorie_socioprofessionnelle"].unique())
 
-# Création du dashboard
-st.title("Age de départ à la retraite et conditions de fin de carrière selon la catégorie socioprofessionnelle")
-categories = sorted(data["categorie_socioprofessionnelle"].unique())
-selected_category = st.sidebar.selectbox("Sélectionnez une catégorie socioprofessionnelle", categories)
+# Filtrer les données
+filtered_data = data[(data["annee"] == year) & (data["categorie_socioprofessionnelle"] == category)]
 
-# Filtre les données selon la catégorie sélectionnée
-filtered_data = data[data["categorie_socioprofessionnelle"] == selected_category]
-
-# Filtrer les données selon l'année sélectionnée
-selected_year = st.sidebar.selectbox("Sélectionnez une année", annees)
-filtered_data = filtered_data[filtered_data["annee"] == selected_year]
-
-# Affichage des données
-st.write("Données pour la catégorie socioprofessionnelle :", selected_category, "et l'année", selected_year)
+# Afficher les données filtrées
+st.write("Données pour l'année", year, "et la catégorie", category)
 st.write(filtered_data)
 
-# Affichage de graphiques
-st.subheader("Graphiques")
-st.bar_chart(filtered_data[["age_conjoncturel_de_depart_a_la_retraite", "duree_moyenne_en_emploi_hors_cumul", "duree_moyenne_sans_emploi_ni_retraite"]])
-st.line_chart(filtered_data[["proportion_de_retraites_a_61_ans", "proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]]) 
+# Créer des graphiques à partir des données filtrées
+st.write("Proportion de personnes limitées au cours de la première année de retraite")
+st.bar_chart(filtered_data[["proportion_de_personnes_fortement_limitees_au_cours_de_la_premiere_annee_de_retraite", "proportion_de_personnes_limitees_mais_pas_fortement_au_cours_de_la_premiere_annee_de_retraite"]])
+
+st.write("Âge conjoncturel de départ à la retraite")
+st.line_chart(filtered_data["age_conjoncturel_de_depart_a_la_retraite"])
+
+st.write("Proportion de retraités à 61 ans")
+st.area_chart(filtered_data["proportion_de_retraites_a_61_ans"])
+
+st.write("Durée moyenne en emploi hors cumul")
+st.line_chart(filtered_data["duree_moyenne_en_emploi_hors_cumul"])
+
+st.write("Durée moyenne sans emploi ni retraite")
+st.line_chart(filtered_data["duree_moyenne_sans_emploi_ni_retraite"])
+
+st.write("Durée moyenne en emploi hors cumul par catégorie socioprofessionnelle")
+mean_duration_by_category = data.groupby("categorie_socioprofessionnelle")["duree_moyenne_en_emploi_hors_cumul"].mean()
+st.bar_chart(mean_duration_by_category)
+
+st.write("Âge conjoncturel de départ à la retraite par catégorie socioprofessionnelle")
+mean_age_by_category = data.groupby("categorie_socioprofessionnelle")["age_conjoncturel_de_depart_a_la_retraite"].mean()
+st.bar_chart(mean_age_by_category)
